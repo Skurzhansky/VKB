@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Воронежский клуб байдарочников — сплавы, маршруты, обучение</title>
+<meta name="description" content="Воронежский клуб байдарочников: сплавы по рекам Воронеж, Дон и Хопёр, обучение гребле, маршруты с картой и фотогалерея.">
+
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN1bnNldCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjZjNDUzIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U4NzAzYSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2F0ZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNmYjZjOSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjMwNDkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTYiIGZpbGw9IiMwYTI0MzgiIHN0cm9rZT0iI2Y2YzQ1MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iODgiIHI9IjQ2IiBmaWxsPSJ1cmwoI3N1bnNldCkiLz4KICA8cGF0aCBkPSJNOCAxMjggYTkyIDkyIDAgMCAwIDE4NCAwIFoiIGZpbGw9IiMwZjMwNDkiLz4KICA8cGF0aCBkPSJNMjAgMTQwIHE0MCAtMjIgODAgMCB0ODAgMCB2NDAgaC0xNjAgeiIgZmlsbD0idXJsKCN3YXRlcikiLz4KICA8cGF0aCBkPSJNNDAgMTMyIHE2MCAtMzQgMTIwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VhZjRmOCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8dGV4dCB4PSIxMDAiIHk9IjE3NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ik1hbnJvcGUsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZWFmNGY4Ij7QktCa0JE8L3RleHQ+Cjwvc3ZnPgo=" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+/* =========================================================
+   Воронежский клуб байдарочников — стили
+   Палитра "вода": глубокий тёмно-синий/бирюзовый + белый + закатный оранжевый акцент
+   ========================================================= */
+
+:root{
+  --navy-deep:#0a2438;
+  --navy:#0f3049;
+  --navy-soft:#134a63;
+  --teal:#1a7a8a;
+  --teal-light:#3fb6c9;
+  --sun:#f2994a;
+  --sun-soft:#f6c453;
+  --white:#ffffff;
+  --off-white:#f4f9fb;
+  --ink:#12232f;
+  --ink-soft:#4a6472;
+  --line:#e1ecf1;
+  --shadow: 0 20px 50px rgba(10,36,56,.18);
+  --radius: 18px;
+  --container: 1180px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Manrope","Segoe UI",system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--off-white);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:"Manrope",sans-serif;
+  font-weight:800;
+  margin:0 0 .5em;
+  letter-spacing:-.01em;
+}
+p{margin:0 0 1em;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+ul{margin:0;padding:0;list-style:none;}
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 24px;
+}
+.section{padding:104px 0;position:relative;overflow:hidden;}
+.section--light{background:var(--off-white);}
+.section--white{background:var(--white);}
+.section--dark{
+  background:linear-gradient(160deg,var(--navy-deep),var(--navy) 60%,var(--navy-soft));
+  color:var(--white);
+}
+.section--dark .section-eyebrow{color:var(--sun-soft);}
+.section--dark .section-desc{color:#c7dae3;}
+.section-head{
+  max-width:720px;
+  margin:0 auto 56px;
+  text-align:center;
+}
+.section-eyebrow{
+  display:inline-block;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:14px;
+}
+.section-title{font-size:clamp(28px,4vw,42px);}
+.section-desc{color:var(--ink-soft);font-size:17px;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 28px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:15px;
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s, color .25s, border-color .25s;
+  white-space:nowrap;
+}
+.btn--sun{
+  background:linear-gradient(135deg,var(--sun),var(--sun-soft));
+  color:var(--navy-deep);
+  box-shadow:0 12px 30px rgba(242,153,74,.35);
+}
+.btn--sun:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(242,153,74,.45);}
+.btn--outline{
+  border-color:rgba(255,255,255,.55);
+  color:#fff;
+  background:rgba(255,255,255,.06);
+}
+.btn--outline:hover{background:rgba(255,255,255,.16);transform:translateY(-2px);}
+.btn--outline-dark{
+  border-color:var(--navy);
+  color:var(--navy);
+}
+.btn--outline-dark:hover{background:var(--navy);color:#fff;transform:translateY(-2px);}
+.btn--block{width:100%;justify-content:center;}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  padding:14px 0;
+  transition:background .3s var(--ease), box-shadow .3s var(--ease), padding .3s var(--ease);
+}
+.site-header.is-scrolled{
+  background:rgba(10,36,56,.92);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+  padding:8px 0;
+}
+.site-header .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;}
+.brand img{height:52px;width:52px;object-fit:contain;transition:height .3s var(--ease),width .3s var(--ease);}
+.site-header.is-scrolled .brand img{height:42px;width:42px;}
+.brand-name{font-weight:800;font-size:15px;line-height:1.2;}
+.brand-name span{display:block;font-weight:600;font-size:11.5px;opacity:.75;letter-spacing:.06em;text-transform:uppercase;}
+.main-nav{display:flex;align-items:center;gap:6px;}
+.main-nav a{
+  color:#eaf4f8;
+  font-size:14.5px;
+  font-weight:600;
+  padding:10px 14px;
+  border-radius:999px;
+  transition:background .2s,color .2s;
+}
+.main-nav a:hover{background:rgba(255,255,255,.12);}
+.header-cta{display:flex;align-items:center;gap:10px;}
+.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  color:#fff;
+  background:linear-gradient(180deg,rgba(8,28,44,.55),rgba(8,28,44,.85)),
+             url("https://images.unsplash.com/photo-1562874749-35d09a73efbe?auto=format&fit=crop&w=2000&q=80") center/cover no-repeat;
+}
+.hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,var(--off-white) 0%, rgba(244,249,251,0) 14%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  padding-top:120px;
+  max-width:760px;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(34px,6vw,64px);
+  line-height:1.05;
+  margin-bottom:20px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(90deg,var(--sun-soft),var(--sun));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero p{
+  font-size:18px;
+  color:#dcebf1;
+  max-width:560px;
+  margin-bottom:36px;
+}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px;}
+.hero-stats{
+  display:flex;
+  gap:40px;
+  flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.2);
+  padding-top:28px;
+}
+.hero-stats div b{
+  display:block;
+  font-size:28px;
+  font-weight:800;
+  color:var(--sun-soft);
+}
+.hero-stats div span{font-size:13px;color:#c7dae3;}
+
+/* ---------- Direction cards ---------- */
+.grid-cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+.card{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:32px 26px;
+  box-shadow:0 10px 30px rgba(15,48,73,.08);
+  border:1px solid var(--line);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.card-icon{
+  width:52px;height:52px;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--teal),var(--navy-soft));
+  color:#fff;
+  margin-bottom:18px;
+  font-size:22px;
+}
+.card h3{font-size:18px;}
+.card p{color:var(--ink-soft);font-size:14.5px;margin:0;}
+
+/* ---------- Почему секция (dark, icon row) ---------- */
+.values-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:rgba(255,255,255,.12);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.value-item{
+  background:rgba(255,255,255,.04);
+  padding:36px 28px;
+  text-align:center;
+}
+.value-item .num{
+  font-size:14px;
+  font-weight:800;
+  color:var(--sun-soft);
+  letter-spacing:.1em;
+  margin-bottom:14px;
+  display:block;
+}
+.value-item h4{color:#fff;font-size:17px;}
+.value-item p{color:#c7dae3;font-size:14px;margin:0;}
+
+/* ---------- Маршруты / карта ---------- */
+.routes-layout{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:44px;
+  align-items:stretch;
+}
+.routes-list{display:flex;flex-direction:column;gap:14px;}
+.route-item{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 18px;
+  cursor:pointer;
+  transition:border-color .2s, box-shadow .2s, transform .2s;
+}
+.route-item:hover, .route-item.is-active{
+  border-color:var(--teal-light);
+  box-shadow:0 10px 26px rgba(26,122,138,.14);
+  transform:translateX(4px);
+}
+.route-color{width:12px;height:12px;border-radius:50%;flex:none;}
+.route-item h4{margin:0 0 2px;font-size:15.5px;}
+.route-item span{font-size:13px;color:var(--ink-soft);}
+.route-km{
+  margin-left:auto;
+  font-weight:800;
+  font-size:14px;
+  color:var(--navy);
+  background:var(--off-white);
+  padding:6px 12px;
+  border-radius:999px;
+  flex:none;
+}
+#routes-map{
+  width:100%;
+  height:100%;
+  min-height:460px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:6px solid #fff;
+}
+.map-note{
+  margin-top:14px;
+  font-size:13px;
+  color:var(--ink-soft);
+}
+.leaflet-popup-content b{color:var(--navy);}
+
+/* ---------- Занятия ---------- */
+.schedule-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 12px;
+}
+.schedule-table th{
+  text-align:left;
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--ink-soft);
+  padding:0 20px 6px;
+}
+.schedule-table td{
+  background:#fff;
+  padding:18px 20px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  font-size:15px;
+}
+.schedule-table tr td:first-child{border-left:1px solid var(--line);border-radius:14px 0 0 14px;font-weight:700;}
+.schedule-table tr td:last-child{border-right:1px solid var(--line);border-radius:0 14px 14px 0;}
+.level-tag{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:12.5px;
+  font-weight:700;
+  background:rgba(26,122,138,.12);
+  color:var(--teal);
+}
+.level-tag.adv{background:rgba(242,153,74,.15);color:#c9702d;}
+
+/* ---------- Галерея ---------- */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:170px;
+  gap:14px;
+}
+.gallery-grid a{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  display:block;
+}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
+.gallery-grid a:hover img{transform:scale(1.08);}
+.gallery-grid a::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(10,36,56,.45),transparent 50%);
+  opacity:0;transition:opacity .3s;
+}
+.gallery-grid a:hover::after{opacity:1;}
+.g-tall{grid-row:span 2;}
+.g-wide{grid-column:span 2;}
+
+/* ---------- Новости ---------- */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.news-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .3s var(--ease);
+}
+.news-card:hover{transform:translateY(-6px);}
+.news-card img{height:180px;object-fit:cover;}
+.news-body{padding:22px;}
+.news-date{font-size:12.5px;color:var(--sun-soft);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.news-card h3{font-size:17px;color:#fff;}
+.news-card p{color:#c7dae3;font-size:14px;margin:0 0 14px;}
+.news-card .read-more{font-size:13.5px;font-weight:700;color:var(--sun-soft);}
+
+/* ---------- Контакты ---------- */
+.contacts-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:44px;
+  align-items:start;
+}
+.contact-row{
+  display:flex;
+  gap:16px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.contact-row:last-child{border-bottom:none;}
+.contact-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--off-white);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--teal);font-size:19px;flex:none;
+}
+.contact-row h4{margin:0 0 2px;font-size:15px;}
+.contact-row p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+#contacts-map{width:100%;height:340px;border-radius:var(--radius);box-shadow:var(--shadow);border:6px solid #fff;}
+.social-links{display:flex;gap:12px;margin-top:20px;}
+.social-links a{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--off-white);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--navy);font-size:17px;
+  transition:background .2s,color .2s;
+}
+.social-links a:hover{background:var(--navy);color:#fff;}
+
+/* ---------- Заявка ---------- */
+.apply-layout{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:50px;
+  align-items:center;
+}
+.apply-form{
+  background:rgba(255,255,255,.96);
+  color:var(--ink);
+  border-radius:var(--radius);
+  padding:38px;
+  box-shadow:var(--shadow);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field.full{grid-column:1/-1;}
+.form-field label{font-size:13px;font-weight:700;color:var(--ink-soft);}
+.form-field input,.form-field select,.form-field textarea{
+  padding:13px 14px;
+  border-radius:10px;
+  border:1.5px solid var(--line);
+  font-family:inherit;
+  font-size:14.5px;
+  background:var(--off-white);
+  transition:border-color .2s, background .2s;
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{
+  outline:none;
+  border-color:var(--teal-light);
+  background:#fff;
+}
+.form-note{font-size:12.5px;color:var(--ink-soft);margin-top:12px;}
+.form-success{
+  display:none;
+  background:rgba(26,122,138,.1);
+  border:1px solid var(--teal-light);
+  color:var(--teal);
+  padding:14px 16px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:600;
+  margin-top:16px;
+}
+.form-success.show{display:block;}
+.apply-points{list-style:none;margin:28px 0 0;padding:0;}
+.apply-points li{
+  display:flex;gap:14px;margin-bottom:18px;color:#dcebf1;font-size:15px;
+}
+.apply-points li b{color:#fff;}
+.apply-points .chk{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(242,153,74,.18);
+  color:var(--sun-soft);
+  display:flex;align-items:center;justify-content:center;
+  flex:none;font-weight:800;
+}
+
+/* ---------- Footer ---------- */
+.site-footer{
+  background:var(--navy-deep);
+  color:#c7dae3;
+  padding:64px 0 28px;
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:32px;
+  padding-bottom:44px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.footer-brand img{height:48px;width:48px;}
+.footer-brand span{font-weight:800;color:#fff;font-size:16px;}
+.site-footer h5{color:#fff;font-size:14px;margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;}
+.site-footer ul li{margin-bottom:10px;}
+.site-footer ul a{font-size:14.5px;color:#c7dae3;transition:color .2s;}
+.site-footer ul a:hover{color:var(--sun-soft);}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:26px;font-size:13px;color:#7d99a8;flex-wrap:wrap;gap:12px;
+}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1024px){
+  .grid-cards{grid-template-columns:repeat(2,1fr);}
+  .values-grid{grid-template-columns:repeat(2,1fr);}
+  .routes-layout,.contacts-layout,.apply-layout{grid-template-columns:1fr;}
+  .news-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-grid{grid-template-columns:repeat(3,1fr);}
+  .main-nav{display:none;}
+  .nav-toggle{display:block;}
+}
+@media(max-width:640px){
+  .section{padding:72px 0;}
+  .grid-cards{grid-template-columns:1fr;}
+  .values-grid{grid-template-columns:1fr;}
+  .news-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .g-wide{grid-column:span 1;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .hero-stats{gap:24px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="#home" class="brand">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN1bnNldCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjZjNDUzIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U4NzAzYSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2F0ZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNmYjZjOSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjMwNDkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTYiIGZpbGw9IiMwYTI0MzgiIHN0cm9rZT0iI2Y2YzQ1MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iODgiIHI9IjQ2IiBmaWxsPSJ1cmwoI3N1bnNldCkiLz4KICA8cGF0aCBkPSJNOCAxMjggYTkyIDkyIDAgMCAwIDE4NCAwIFoiIGZpbGw9IiMwZjMwNDkiLz4KICA8cGF0aCBkPSJNMjAgMTQwIHE0MCAtMjIgODAgMCB0ODAgMCB2NDAgaC0xNjAgeiIgZmlsbD0idXJsKCN3YXRlcikiLz4KICA8cGF0aCBkPSJNNDAgMTMyIHE2MCAtMzQgMTIwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VhZjRmOCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8dGV4dCB4PSIxMDAiIHk9IjE3NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ik1hbnJvcGUsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZWFmNGY4Ij7QktCa0JE8L3RleHQ+Cjwvc3ZnPgo=" alt="Логотип клуба">
+      <div class="brand-name">Воронежский клуб<span>байдарочников</span></div>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home">Главная</a>
+      <a href="#routes">Маршруты</a>
+      <a href="#classes">Занятия</a>
+      <a href="#gallery">Фотогалерея</a>
+      <a href="#news">Новости</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="header-cta">
+      <a href="#apply" class="btn btn--sun">Подать заявку</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO / ГЛАВНАЯ ============ -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <span class="hero-badge">🛶 Воронеж · с 2014 года на воде</span>
+    <h1>Гребём вместе — <em>от первого весла</em> до сложных порогов</h1>
+    <p>Сплавы по рекам Воронеж, Дон и Хопёр, обучение гребле и безопасности на воде, дружная команда и снаряжение для новичков и опытных байдарочников.</p>
+    <div class="hero-actions">
+      <a href="#apply" class="btn btn--sun">Вступить в клуб →</a>
+      <a href="#classes" class="btn btn--outline">Наши занятия</a>
+    </div>
+    <div class="hero-stats">
+      <div><b>11&nbsp;лет</b><span>клубу на воде</span></div>
+      <div><b>240+</b><span>пройденных км рек в этом сезоне</span></div>
+      <div><b>60+</b><span>активных участников</span></div>
+      <div><b>15</b><span>маршрутов разного уровня</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ НАПРАВЛЕНИЯ ============ -->
+<section class="section section--light">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Направления</span>
+      <h2 class="section-title">Чем мы занимаемся на воде</h2>
+      <p class="section-desc">От спокойных семейных сплавов до многодневных походов со сложными участками — выбирайте уровень, который вам ближе.</p>
+    </div>
+    <div class="grid-cards">
+      <div class="card reveal">
+        <div class="card-icon">🌊</div>
+        <h3>Спокойные сплавы</h3>
+        <p>Однодневные маршруты по реке Воронеж для семей и новичков, без порогов и с минимальной подготовкой.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🧭</div>
+        <h3>Многодневные походы</h3>
+        <p>Маршруты по Дону и Хопру с ночёвками на берегу, полным снаряжением и опытным инструктором.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🏆</div>
+        <h3>Спортивные сплавы</h3>
+        <p>Тренировки на скорость и технику для тех, кто готовится к соревнованиям и сложным порогам.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🎓</div>
+        <h3>Обучение с нуля</h3>
+        <p>Базовый курс гребли, посадки в байдарку, самоспасения и поведения на воде — для новичков любого возраста.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПОЧЕМУ МЫ ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Почему мы</span>
+      <h2 class="section-title">Почему выбирают «Байдарочников»</h2>
+      <p class="section-desc">Мы не просто плаваем — мы растим сообщество людей, которые любят реки Воронежской области.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-item reveal">
+        <span class="num">01</span>
+        <h4>Опытные инструкторы</h4>
+        <p>Судоводители и инструкторы с многолетним стажем сплавов и спасательной подготовкой.</p>
+      </div>
+      <div class="value-item reveal">
+        <span class="num">02</span>
+        <h4>Снаряжение включено</h4>
+        <p>Байдарки, вёсла, спасжилеты и гермомешки выдаём на месте — своё снаряжение не обязательно.</p>
+      </div>
+      <div class="value-item reveal">
+        <span class="num">03</span>
+        <h4>Безопасность на воде</h4>
+        <p>Инструктаж, сопровождение на маршруте и связь с базой на каждом сплаве.</p>
+      </div>
+      <div class="value-item reveal">
+        <span class="num">04</span>
+        <h4>Дружная команда</h4>
+        <p>Совместные тренировки, вечера у костра и путешествия, которые перерастают в настоящую дружбу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ МАРШРУТЫ ============ -->
+<section class="section section--white" id="routes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Маршруты</span>
+      <h2 class="section-title">Наши сплавы на карте</h2>
+      <p class="section-desc">Нажмите на маршрут слева или на маркер на карте — увидите пройденные километры и описание участка.</p>
+    </div>
+    <div class="routes-layout">
+      <div class="routes-list reveal" id="routesList">
+        <div class="route-item is-active" data-route="voronezh">
+          <span class="route-color" style="background:#3fb6c9"></span>
+          <div><h4>Река Воронеж</h4><span>Чертовицкое → Рамонь · лёгкий</span></div>
+          <span class="route-km">18 км</span>
+        </div>
+        <div class="route-item" data-route="don">
+          <span class="route-color" style="background:#f2994a"></span>
+          <div><h4>Река Дон</h4><span>Костёнки → Дивногорье · средний</span></div>
+          <span class="route-km">32 км</span>
+        </div>
+        <div class="route-item" data-route="hoper">
+          <span class="route-color" style="background:#7c5cff"></span>
+          <div><h4>Река Хопёр</h4><span>Новохопёрск → Урюпинск · средний/сложный</span></div>
+          <span class="route-km">45 км</span>
+        </div>
+        <div class="route-item" data-route="vdhr">
+          <span class="route-color" style="background:#2ecc71"></span>
+          <div><h4>Воронежское водохранилище</h4><span>Тренировочный сплав · для новичков</span></div>
+          <span class="route-km">8 км</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div id="routes-map"></div>
+        <p class="map-note">* Маршруты и километраж — примерные, для демонстрации макета. Замените координаты в <code>assets/script.js</code> на реальные GPS-треки вашего клуба.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЗАНЯТИЯ ============ -->
+<section class="section section--light" id="classes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Занятия</span>
+      <h2 class="section-title">Расписание тренировок</h2>
+      <p class="section-desc">Занятия проходят на воде и в бассейне (в межсезонье). Запись — через раздел «Заявка».</p>
+    </div>
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="schedule-table">
+        <thead>
+          <tr><th>День</th><th>Время</th><th>Занятие</th><th>Уровень</th><th>Место</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Вторник</td><td>19:00 – 21:00</td><td>Техника гребли</td>
+            <td><span class="level-tag">Новички</span></td><td>Бассейн «Спартак»</td>
+          </tr>
+          <tr>
+            <td>Четверг</td><td>19:00 – 21:00</td><td>Общая физическая подготовка</td>
+            <td><span class="level-tag">Все уровни</span></td><td>Набережная, база клуба</td>
+          </tr>
+          <tr>
+            <td>Суббота</td><td>10:00 – 15:00</td><td>Выездной сплав</td>
+            <td><span class="level-tag adv">Продолжающие</span></td><td>Река Воронеж / Дон</td>
+          </tr>
+          <tr>
+            <td>Воскресенье</td><td>10:00 – 13:00</td><td>Самоспасение и оверкиль</td>
+            <td><span class="level-tag adv">Продолжающие</span></td><td>Воронежское водохранилище</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ФОТОГАЛЕРЕЯ ============ -->
+<section class="section section--white" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Фотогалерея</span>
+      <h2 class="section-title">Как это выглядит вживую</h2>
+      <p class="section-desc">Моменты со сплавов, тренировок и походов клуба.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <a href="https://images.unsplash.com/photo-1436162716854-dcb9157bfac1?auto=format&fit=crop&w=1400&q=80" class="g-tall" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1436162716854-dcb9157bfac1?auto=format&fit=crop&w=700&q=70" alt="Байдарка на закате">
+      </a>
+      <a href="https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=1400&q=80" class="g-wide" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=900&q=70" alt="Групповой сплав на байдарках">
+      </a>
+      <a href="https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=1400&q=80" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=700&q=70" alt="Вид с байдарки на реку">
+      </a>
+      <a href="https://images.unsplash.com/photo-1654022911672-df5379211106?auto=format&fit=crop&w=1400&q=80" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1654022911672-df5379211106?auto=format&fit=crop&w=700&q=70" alt="Сплав по реке на закате">
+      </a>
+      <a href="https://images.unsplash.com/photo-1562874749-35d09a73efbe?auto=format&fit=crop&w=1400&q=80" class="g-wide" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1562874749-35d09a73efbe?auto=format&fit=crop&w=900&q=70" alt="Река с высоты">
+      </a>
+      <a href="https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=1400&q=80&sat=-10" target="_blank" rel="noopener">
+        <img src="https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=700&q=70&crop=bottom" alt="Команда клуба на воде">
+      </a>
+    </div>
+    <p class="map-note reveal" style="text-align:center;margin-top:20px;">* Фото — примеры для макета. Заменим на реальные снимки клуба (из раздела «Фотогалерея» ВКонтакте или архива).</p>
+  </div>
+</section>
+
+<!-- ============ НОВОСТИ ============ -->
+<section class="section section--dark" id="news">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Новости</span>
+      <h2 class="section-title">Последние события клуба</h2>
+      <p class="section-desc">Анонсы сплавов, отчёты о походах и важные объявления.</p>
+    </div>
+    <div class="news-grid">
+      <article class="news-card reveal">
+        <img src="https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=700&q=70" alt="">
+        <div class="news-body">
+          <span class="news-date">12 июля 2026</span>
+          <h3>Открытие сезона на реке Воронеж</h3>
+          <p>Более 30 участников вышли на воду в первый весенний сплав — фоторепортаж и итоги дня.</p>
+          <a href="#" class="read-more">Читать далее →</a>
+        </div>
+      </article>
+      <article class="news-card reveal">
+        <img src="https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=700&q=70" alt="">
+        <div class="news-body">
+          <span class="news-date">28 июня 2026</span>
+          <h3>Набор в группу для начинающих</h3>
+          <p>Стартует новый базовый курс гребли и безопасности на воде — места ограничены.</p>
+          <a href="#" class="read-more">Читать далее →</a>
+        </div>
+      </article>
+      <article class="news-card reveal">
+        <img src="https://images.unsplash.com/photo-1654022911672-df5379211106?auto=format&fit=crop&w=700&q=70" alt="">
+        <div class="news-body">
+          <span class="news-date">14 июня 2026</span>
+          <h3>Поход выходного дня по Дону</h3>
+          <p>Отчёт о двухдневном сплаве Костёнки — Дивногорье с ночёвкой у меловых гор.</p>
+          <a href="#" class="read-more">Читать далее →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КОНТАКТЫ ============ -->
+<section class="section section--light" id="contacts">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Контакты</span>
+      <h2 class="section-title">Как нас найти</h2>
+      <p class="section-desc">Приезжайте на базу клуба или напишите нам — расскажем про ближайший сплав.</p>
+    </div>
+    <div class="contacts-layout">
+      <div class="reveal">
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div><h4>База клуба</h4><p>г. Воронеж, Кольцовская наб., рядом с лодочной станцией</p></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div><h4>Телефон</h4><p>+7 (473) 000-00-00</p></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div><h4>Почта</h4><p>info@vrn-baidarki.ru</p></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🕒</div>
+          <div><h4>Тренировки</h4><p>Вт, Чт — 19:00–21:00, Сб-Вс — по расписанию сплавов</p></div>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="ВКонтакте">VK</a>
+          <a href="#" aria-label="Telegram">TG</a>
+          <a href="#" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div id="contacts-map"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЗАЯВКА ============ -->
+<section class="section section--dark" id="apply">
+  <div class="container">
+    <div class="apply-layout">
+      <div class="reveal">
+        <span class="section-eyebrow">Заявка</span>
+        <h2 class="section-title">Хотите присоединиться?</h2>
+        <p class="section-desc" style="color:#c7dae3;">Заполните короткую заявку — мы свяжемся с вами и подберём подходящий маршрут и группу.</p>
+        <ul class="apply-points">
+          <li><span class="chk">✓</span><span><b>Подбираем маршрут</b> по вашему уровню подготовки</span></li>
+          <li><span class="chk">✓</span><span><b>Даём снаряжение</b> — своей байдарки не нужно</span></li>
+          <li><span class="chk">✓</span><span><b>Проводим инструктаж</b> перед первым сплавом</span></li>
+        </ul>
+      </div>
+      <form class="apply-form reveal" id="applyForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-name">Имя</label>
+            <input type="text" id="f-name" name="name" placeholder="Как к вам обращаться" required>
+          </div>
+          <div class="form-field">
+            <label for="f-phone">Телефон</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="+7 ___ ___-__-__" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" placeholder="you@mail.ru">
+          </div>
+          <div class="form-field">
+            <label for="f-level">Опыт</label>
+            <select id="f-level" name="level">
+              <option>Новичок — никогда не грёб(-ла)</option>
+              <option>Немного опыта</option>
+              <option>Уверенно гребу, хочу сложнее</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full">
+            <label for="f-route">Интересующий маршрут</label>
+            <select id="f-route" name="route">
+              <option>Река Воронеж — лёгкий</option>
+              <option>Река Дон — средний</option>
+              <option>Река Хопёр — средний/сложный</option>
+              <option>Ещё не решил(-а)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full">
+            <label for="f-msg">Комментарий</label>
+            <textarea id="f-msg" name="message" rows="3" placeholder="Вопросы, пожелания по датам и т.д."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--sun btn--block">Отправить заявку</button>
+        <p class="form-note">Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.</p>
+        <div class="form-success" id="formSuccess">Спасибо! Заявка отправлена — мы свяжемся с вами в ближайшее время.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN1bnNldCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjZjNDUzIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U4NzAzYSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2F0ZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNmYjZjOSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjMwNDkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTYiIGZpbGw9IiMwYTI0MzgiIHN0cm9rZT0iI2Y2YzQ1MyIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iODgiIHI9IjQ2IiBmaWxsPSJ1cmwoI3N1bnNldCkiLz4KICA8cGF0aCBkPSJNOCAxMjggYTkyIDkyIDAgMCAwIDE4NCAwIFoiIGZpbGw9IiMwZjMwNDkiLz4KICA8cGF0aCBkPSJNMjAgMTQwIHE0MCAtMjIgODAgMCB0ODAgMCB2NDAgaC0xNjAgeiIgZmlsbD0idXJsKCN3YXRlcikiLz4KICA8cGF0aCBkPSJNNDAgMTMyIHE2MCAtMzQgMTIwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VhZjRmOCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8dGV4dCB4PSIxMDAiIHk9IjE3NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Ik1hbnJvcGUsIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iODAwIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZWFmNGY4Ij7QktCa0JE8L3RleHQ+Cjwvc3ZnPgo=" alt="Логотип клуба">
+          <span>Клуб байдарочников</span>
+        </div>
+        <p>Сплавы, обучение гребле и путешествия по рекам Воронежской области. Воронеж.</p>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="#routes">Маршруты</a></li>
+          <li><a href="#classes">Занятия</a></li>
+          <li><a href="#gallery">Фотогалерея</a></li>
+          <li><a href="#news">Новости</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Клуб</h5>
+        <ul>
+          <li><a href="#contacts">Контакты</a></li>
+          <li><a href="#apply">Заявка</a></li>
+          <li><a href="#">ВКонтакте</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Связь</h5>
+        <ul>
+          <li><a href="tel:+74730000000">+7 (473) 000-00-00</a></li>
+          <li><a href="mailto:info@vrn-baidarki.ru">info@vrn-baidarki.ru</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Воронежский клуб байдарочников. Сделано с любовью к рекам.</span>
+      <span>Сайт-макет для вдохновения</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* =========================================================
+   Воронежский клуб байдарочников — интерактив
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ---------- Header on scroll ---------- */
+  const header = document.getElementById("siteHeader");
+  const onScroll = () => {
+    if (window.scrollY > 40) header.classList.add("is-scrolled");
+    else header.classList.remove("is-scrolled");
+  };
+  window.addEventListener("scroll", onScroll);
+  onScroll();
+
+  /* ---------- Mobile nav toggle ---------- */
+  const navToggle = document.getElementById("navToggle");
+  const mainNav = document.getElementById("mainNav");
+  navToggle.addEventListener("click", () => {
+    const open = mainNav.style.display === "flex";
+    mainNav.style.display = open ? "" : "flex";
+    mainNav.style.flexDirection = "column";
+    mainNav.style.position = "absolute";
+    mainNav.style.top = "100%";
+    mainNav.style.left = "0";
+    mainNav.style.right = "0";
+    mainNav.style.background = "rgba(10,36,56,.97)";
+    mainNav.style.padding = "12px 20px";
+  });
+  mainNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+    if (window.innerWidth <= 1024) mainNav.style.display = "";
+  }));
+
+  /* ---------- Scroll reveal ---------- */
+  const revealEls = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* =========================================================
+     МАРШРУТЫ — данные примерные (для демонстрации макета).
+     Замените coords и km на реальные GPS-треки вашего клуба.
+     ========================================================= */
+  const routesData = {
+    voronezh: {
+      color: "#3fb6c9",
+      name: "Река Воронеж",
+      points: [
+        { lat: 51.8500, lng: 39.2400, km: 0,  label: "Старт — Чертовицкое" },
+        { lat: 51.9100, lng: 39.3000, km: 9,  label: "Середина маршрута" },
+        { lat: 51.9803, lng: 39.3583, km: 18, label: "Финиш — Рамонь" }
+      ]
+    },
+    don: {
+      color: "#f2994a",
+      name: "Река Дон",
+      points: [
+        { lat: 51.3970, lng: 39.0450, km: 0,  label: "Старт — Костёнки" },
+        { lat: 51.2000, lng: 39.1200, km: 16, label: "Стоянка на берегу" },
+        { lat: 50.9805, lng: 39.2967, km: 32, label: "Финиш — Дивногорье" }
+      ]
+    },
+    hoper: {
+      color: "#7c5cff",
+      name: "Река Хопёр",
+      points: [
+        { lat: 51.1010, lng: 41.9210, km: 0,  label: "Старт — Новохопёрск" },
+        { lat: 50.9500, lng: 41.9700, km: 22, label: "Промежуточный пункт" },
+        { lat: 50.7961, lng: 42.0170, km: 45, label: "Финиш — Урюпинск" }
+      ]
+    },
+    vdhr: {
+      color: "#2ecc71",
+      name: "Воронежское водохранилище",
+      points: [
+        { lat: 51.7300, lng: 39.2100, km: 0, label: "Старт у базы клуба" },
+        { lat: 51.7700, lng: 39.2450, km: 4, label: "Разворот" },
+        { lat: 51.7300, lng: 39.2100, km: 8, label: "Финиш у базы клуба" }
+      ]
+    }
+  };
+
+  let routesMap, routeLayers = {};
+
+  function initRoutesMap() {
+    const mapEl = document.getElementById("routes-map");
+    if (!mapEl || typeof L === "undefined") return;
+
+    routesMap = L.map(mapEl, { scrollWheelZoom: false }).setView([51.55, 40.2], 7);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(routesMap);
+
+    const kmIcon = (color) => L.divIcon({
+      className: "km-marker",
+      html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);"></div>`,
+      iconSize: [14, 14]
+    });
+
+    Object.entries(routesData).forEach(([key, route]) => {
+      const latlngs = route.points.map(p => [p.lat, p.lng]);
+      const line = L.polyline(latlngs, { color: route.color, weight: 5, opacity: 0.85 }).addTo(routesMap);
+
+      const markers = route.points.map(p => {
+        return L.marker([p.lat, p.lng], { icon: kmIcon(route.color) })
+          .addTo(routesMap)
+          .bindPopup(`<b>${route.name}</b><br>${p.label}<br><b>${p.km} км</b> от старта`);
+      });
+
+      routeLayers[key] = { line, markers, group: L.featureGroup([line, ...markers]) };
+    });
+
+    // показываем первый маршрут активным по умолчанию
+    focusRoute("voronezh");
+  }
+
+  function focusRoute(key) {
+    if (!routesMap || !routeLayers[key]) return;
+    routesMap.fitBounds(routeLayers[key].group.getBounds(), { padding: [30, 30] });
+  }
+
+  document.querySelectorAll(".route-item").forEach(item => {
+    item.addEventListener("click", () => {
+      document.querySelectorAll(".route-item").forEach(i => i.classList.remove("is-active"));
+      item.classList.add("is-active");
+      focusRoute(item.dataset.route);
+    });
+  });
+
+  /* ---------- Контакты — карта базы клуба ---------- */
+  function initContactsMap() {
+    const mapEl = document.getElementById("contacts-map");
+    if (!mapEl || typeof L === "undefined") return;
+    const clubLatLng = [51.6600, 39.2100]; // примерное расположение базы клуба — замените на точный адрес
+    const map = L.map(mapEl, { scrollWheelZoom: false }).setView(clubLatLng, 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker(clubLatLng).addTo(map).bindPopup("<b>База клуба</b><br>Кольцовская наб., Воронеж").openPopup();
+  }
+
+  initRoutesMap();
+  initContactsMap();
+
+  /* ---------- Форма заявки ---------- */
+  const applyForm = document.getElementById("applyForm");
+  const formSuccess = document.getElementById("formSuccess");
+  if (applyForm) {
+    applyForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // ЗАГЛУШКА: здесь нет реального бэкенда.
+      // Подключите Formspree / Google Forms / свой сервер, чтобы заявки приходили вам на почту.
+      formSuccess.classList.add("show");
+      applyForm.reset();
+      setTimeout(() => formSuccess.classList.remove("show"), 6000);
+    });
+  }
+
+});
+
+</script>
+</body>
+</html>
