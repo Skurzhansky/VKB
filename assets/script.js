@@ -90,10 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
      КАРТЫ — Яндекс.Карты (API 2.1)
      Вставьте бесплатный ключ ниже. Как получить (5 минут):
        1) https://developer.tech.yandex.ru/services/  → войти
-       2) Подключить "JavaScript API и HTTP Геокодер"
+       2) "Подключить API" → выбрать "JavaScript API" (Геокодер не нужен) → Продолжить
        3) Скопировать ключ и вставить в YANDEX_API_KEY ниже.
      ========================================================= */
-  const YANDEX_API_KEY = "19a290c6-c4a7-4146-bbbb-0f59bfe19094"; // <-- ЗАМЕНИТЕ на свой ключ
+  const YANDEX_API_KEY = "19a290c6-c4a7-4146-bbbb-0f59bfe19094"; // ключ Яндекс.Карт
 
   const CLUB_COORDS = [51.6712, 39.1978]; // ул. Челюскинцев, 101, Воронеж (примерно — уточните)
 
