@@ -86,47 +86,84 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  let routesMap, routeLayers = {};
+  /* =========================================================
+     КАРТЫ — Яндекс.Карты (API 2.1)
+     Вставьте бесплатный ключ ниже. Как получить (5 минут):
+       1) https://developer.tech.yandex.ru/services/  → войти
+       2) Подключить "JavaScript API и HTTP Геокодер"
+       3) Скопировать ключ и вставить в YANDEX_API_KEY ниже.
+     ========================================================= */
+  const YANDEX_API_KEY = "19a290c6-c4a7-4146-bbbb-0f59bfe19094"; // <-- ЗАМЕНИТЕ на свой ключ
+
+  const CLUB_COORDS = [51.6712, 39.1978]; // ул. Челюскинцев, 101, Воронеж (примерно — уточните)
+
+  let routesMap, ymRouteGroups = {};
+
+  function mapFallback(el, title) {
+    if (!el) return;
+    el.innerHTML =
+      '<div class="map-fallback">' +
+        '<b>🗺️ Карта Яндекс</b>' +
+        '<span>' + title + '</span>' +
+        '<span>Чтобы карта отобразилась, вставьте бесплатный API-ключ Яндекс.Карт в файле ' +
+        '<code>assets/script.js</code> (переменная <code>YANDEX_API_KEY</code>).</span>' +
+        '<a href="https://developer.tech.yandex.ru/services/" target="_blank" rel="noopener">Получить ключ →</a>' +
+      '</div>';
+  }
 
   function initRoutesMap() {
     const mapEl = document.getElementById("routes-map");
-    if (!mapEl || typeof L === "undefined") return;
-
-    routesMap = L.map(mapEl, { scrollWheelZoom: false }).setView([51.55, 40.2], 7);
-    routesMap.attributionControl.setPrefix('Leaflet'); // убираем флаг из стандартного префикса
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 18,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(routesMap);
-
-    const kmIcon = (color) => L.divIcon({
-      className: "km-marker",
-      html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);"></div>`,
-      iconSize: [14, 14]
-    });
+    if (!mapEl) return;
+    routesMap = new ymaps.Map(mapEl, {
+      center: [51.55, 40.2], zoom: 7, controls: ["zoomControl", "fullscreenControl"]
+    }, { suppressMapOpenBlock: true });
+    routesMap.behaviors.disable("scrollZoom");
 
     Object.entries(routesData).forEach(([key, route]) => {
-      const latlngs = route.points.map(p => [p.lat, p.lng]);
-      const line = L.polyline(latlngs, { color: route.color, weight: 5, opacity: 0.85 }).addTo(routesMap);
-
-      const markers = route.points.map(p => {
-        return L.marker([p.lat, p.lng], { icon: kmIcon(route.color) })
-          .addTo(routesMap)
-          .bindPopup(`<b>${route.name}</b><br>${p.label}<br><b>${p.km} км</b> от старта`);
+      const coords = route.points.map(p => [p.lat, p.lng]);
+      const group = new ymaps.GeoObjectCollection();
+      group.add(new ymaps.Polyline(coords, {}, {
+        strokeColor: route.color, strokeWidth: 5, strokeOpacity: 0.9
+      }));
+      route.points.forEach(p => {
+        group.add(new ymaps.Placemark([p.lat, p.lng], {
+          hintContent: route.name + " — " + p.km + " км",
+          balloonContentHeader: route.name,
+          balloonContentBody: p.label + "<br><b>" + p.km + " км</b> от старта"
+        }, { preset: "islands#circleIcon", iconColor: route.color }));
       });
-
-      routeLayers[key] = { line, markers, group: L.featureGroup([line, ...markers]) };
+      routesMap.geoObjects.add(group);
+      ymRouteGroups[key] = group;
     });
 
-    // показываем первый маршрут активным по умолчанию
     focusRoute("voronezh");
   }
 
   function focusRoute(key) {
-    if (!routesMap || !routeLayers[key]) return;
-    routesMap.fitBounds(routeLayers[key].group.getBounds(), { padding: [30, 30] });
+    if (!routesMap || !ymRouteGroups[key]) return;
+    routesMap.setBounds(ymRouteGroups[key].getBounds(), { checkZoomRange: true, zoomMargin: 35 });
   }
 
+  function initContactsMap() {
+    const mapEl = document.getElementById("contacts-map");
+    if (!mapEl) return;
+    const map = new ymaps.Map(mapEl, {
+      center: CLUB_COORDS, zoom: 15, controls: ["zoomControl"]
+    }, { suppressMapOpenBlock: true });
+    map.behaviors.disable("scrollZoom");
+    map.geoObjects.add(new ymaps.Placemark(CLUB_COORDS, {
+      balloonContentHeader: "Воронежский клуб байдарочников",
+      balloonContentBody: "ул. Челюскинцев, 101",
+      hintContent: "Мы здесь"
+    }, { preset: "islands#blueSportIcon" }));
+  }
+
+  function initYandexMaps() {
+    initRoutesMap();
+    initContactsMap();
+  }
+
+  // клики по маршрутам работают независимо от загрузки карты
   document.querySelectorAll(".route-item").forEach(item => {
     item.addEventListener("click", () => {
       document.querySelectorAll(".route-item").forEach(i => i.classList.remove("is-active"));
@@ -135,22 +172,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ---------- Контакты — карта базы клуба ---------- */
-  function initContactsMap() {
-    const mapEl = document.getElementById("contacts-map");
-    if (!mapEl || typeof L === "undefined") return;
-    const clubLatLng = [51.6712, 39.1978]; // ул. Челюскинцев, 101, Воронеж (примерно — уточните при необходимости)
-    const map = L.map(mapEl, { scrollWheelZoom: false }).setView(clubLatLng, 14);
-    map.attributionControl.setPrefix('Leaflet'); // убираем флаг из стандартного префикса
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 18,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker(clubLatLng).addTo(map).bindPopup("<b>Воронежский клуб байдарочников</b><br>ул. Челюскинцев, 101").openPopup();
+  // Загружаем API Яндекс.Карт только если на странице есть карта
+  const hasMap = document.getElementById("routes-map") || document.getElementById("contacts-map");
+  if (hasMap) {
+    if (!YANDEX_API_KEY || YANDEX_API_KEY.indexOf("ВАШ_КЛЮЧ") === 0) {
+      mapFallback(document.getElementById("routes-map"), "Маршруты клуба на карте");
+      mapFallback(document.getElementById("contacts-map"), "г. Воронеж, ул. Челюскинцев, 101");
+    } else {
+      const s = document.createElement("script");
+      s.src = "https://api-maps.yandex.ru/2.1/?apikey=" + encodeURIComponent(YANDEX_API_KEY) + "&lang=ru_RU";
+      s.onload = () => ymaps.ready(initYandexMaps);
+      s.onerror = () => {
+        mapFallback(document.getElementById("routes-map"), "Не удалось загрузить карту");
+        mapFallback(document.getElementById("contacts-map"), "Не удалось загрузить карту");
+      };
+      document.head.appendChild(s);
+    }
   }
-
-  initRoutesMap();
-  initContactsMap();
 
   /* ---------- Форма заявки ---------- */
   const applyForm = document.getElementById("applyForm");
