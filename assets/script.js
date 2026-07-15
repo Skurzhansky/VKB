@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!mapEl || typeof L === "undefined") return;
 
     routesMap = L.map(mapEl, { scrollWheelZoom: false }).setView([51.55, 40.2], 7);
+    routesMap.attributionControl.setPrefix('Leaflet'); // убираем флаг из стандартного префикса
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap contributors'
@@ -140,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!mapEl || typeof L === "undefined") return;
     const clubLatLng = [51.6712, 39.1978]; // ул. Челюскинцев, 101, Воронеж (примерно — уточните при необходимости)
     const map = L.map(mapEl, { scrollWheelZoom: false }).setView(clubLatLng, 14);
+    map.attributionControl.setPrefix('Leaflet'); // убираем флаг из стандартного префикса
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap contributors'
