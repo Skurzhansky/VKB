@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Маршруты — Воронежский клуб байдарочников</title>
-<meta name="description" content="Карты маршрутов клуба по рекам Воронеж, Дон и Хопёр с отметками пройденных километров.">
+<meta name="description" content="Реки, по которым мы ходили: Усманка, Воронеж, Битюг, Дон, Хопёр и другие. Карта маршрутов с отметками километража.">
 <link rel="icon" href="assets/logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +29,6 @@
       <a href="apply.html">Заявка</a>
     </nav>
     <div class="header-cta">
-      <a href="apply.html" class="btn btn--sun">Подать заявку</a>
       <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
     </div>
   </div>
@@ -38,8 +37,8 @@
 <section class="page-hero" style="--hero-bg:url('https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=2000&q=80')">
   <div class="container">
     <span class="page-hero-eyebrow">Маршруты</span>
-    <h1>Наши сплавы на карте</h1>
-    <p>Выберите маршрут — на карте появятся отметки километража. Наведите на маркер, чтобы увидеть, сколько километров пройдено от старта.</p>
+    <h1>Реки, по которым мы ходим</h1>
+    <p>Подберём маршрут под вашу группу. Ниже — карта с примерами сплавов и полный список рек, которые мы уже прошли.</p>
   </div>
 </section>
 
@@ -64,31 +63,48 @@
         </div>
         <div class="route-item" data-route="vdhr">
           <span class="route-color" style="background:#2ecc71"></span>
-          <div><h4>Воронежское водохранилище</h4><span>Тренировочный сплав · для новичков</span></div>
-          <span class="route-km">8 км</span>
+          <div><h4>Река Усманка</h4><span>Боровое → турбаза «Лесная сказка» · лёгкий</span></div>
+          <span class="route-km">14 км</span>
         </div>
       </div>
       <div class="reveal">
         <div id="routes-map"></div>
-        <p class="map-note">* Маршруты и километраж — примерные, для демонстрации макета. Замените координаты и отметки км в <code>assets/script.js</code> (объект <code>routesData</code>) на реальные GPS-треки вашего клуба.</p>
+        <p class="map-note">* Точки на карте — примерные, для наглядности. Реальные координаты и километраж своих маршрутов можно поправить в <code>assets/script.js</code> (объект <code>routesData</code>).</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section--light">
+<section class="section section--dark">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Отметки километража</span>
-      <h2 class="section-title">Как читать карту</h2>
-      <p class="section-desc">На каждом маршруте расставлены маркеры с числом километров от точки старта — так видно прогресс группы по дистанции.</p>
+      <span class="section-eyebrow">Наш опыт</span>
+      <h2 class="section-title">Реки, которые мы прошли</h2>
+      <p class="section-desc">За годы походов пройдены реки Воронежской области и соседних регионов:</p>
     </div>
-    <div class="grid-cards">
-      <div class="card reveal"><div class="card-icon">📍</div><h3>Старт — 0 км</h3><p>Точка сбора и спуска байдарок на воду, инструктаж перед выходом.</p></div>
-      <div class="card reveal"><div class="card-icon">⏱️</div><h3>Промежуточные отметки</h3><p>Маркеры на маршруте показывают пройденную дистанцию и места стоянок.</p></div>
-      <div class="card reveal"><div class="card-icon">🏁</div><h3>Финиш</h3><p>Итоговый километраж маршрута и точка выхода на берег.</p></div>
-      <div class="card reveal"><div class="card-icon">🗺️</div><h3>Свои треки</h3><p>Добавляйте новые маршруты и километраж — карта строится автоматически.</p></div>
+    <div class="rivers-cloud reveal">
+        <span class="river-chip">Усманка (от истока до устья)</span>
+        <span class="river-chip">Воронеж</span>
+        <span class="river-chip">Битюг</span>
+        <span class="river-chip">Дон</span>
+        <span class="river-chip">Тихая Сосна</span>
+        <span class="river-chip">Потудань</span>
+        <span class="river-chip">Хопёр</span>
+        <span class="river-chip">Ворона</span>
+        <span class="river-chip">Медведица</span>
+        <span class="river-chip">Пра</span>
+        <span class="river-chip">Савала</span>
+        <span class="river-chip">Красивая Меча</span>
     </div>
+    <p class="section-desc reveal" style="text-align:center;margin-top:26px;max-width:760px;margin-left:auto;margin-right:auto;">А также несколько десятков северных рек Кольского полуострова, Карелии и Северного Урала. Возможны и однодневные походы недалеко от города.</p>
+  </div>
+</section>
+
+<section class="section section--cta" style="--hero-bg:url('https://images.unsplash.com/photo-1562874749-35d09a73efbe?auto=format&fit=crop&w=2000&q=80')">
+  <div class="container cta-inner reveal">
+    <h2>Хотите на конкретную реку?</h2>
+    <p>Напишите, куда и на сколько дней хотите — подберём маршрут и рассчитаем стоимость.</p>
+    <a href="apply.html" class="btn btn--sun">Оставить заявку</a>
   </div>
 </section>
 
@@ -103,13 +119,13 @@
           <img src="assets/logo.png" alt="Логотип клуба">
           <span>Клуб байдарочников</span>
         </div>
-        <p>Сплавы, обучение гребле и путешествия по рекам Воронежской области. Воронеж.</p>
+        <p>Байдарочные походы и сплавы по рекам Воронежской области и не только. Опыт организации походов с 1998 года. Воронеж.</p>
       </div>
       <div>
         <h5>Разделы</h5>
         <ul>
           <li><a href="routes.html">Маршруты</a></li>
-          <li><a href="classes.html">Занятия</a></li>
+          <li><a href="classes.html">Занятия и цены</a></li>
           <li><a href="gallery.html">Фотогалерея</a></li>
           <li><a href="news.html">Новости</a></li>
         </ul>
@@ -119,20 +135,21 @@
         <ul>
           <li><a href="contacts.html">Контакты</a></li>
           <li><a href="apply.html">Заявка</a></li>
-          <li><a href="#">ВКонтакте</a></li>
+          <li><a href="https://www.avito.ru/voronezh/predlozheniya_uslug/pohody_na_baydarkah_1680966635" target="_blank" rel="noopener">Объявление на Avito</a></li>
         </ul>
       </div>
       <div>
         <h5>Связь</h5>
         <ul>
-          <li><a href="tel:+74730000000">+7 (473) 000-00-00</a></li>
-          <li><a href="mailto:info@vrn-baidarki.ru">info@vrn-baidarki.ru</a></li>
+          <li>Контактное лицо: Андрей</li>
+          <li>г. Воронеж, ул. Челюскинцев, 101</li>
+          <li><a href="https://www.avito.ru/voronezh/predlozheniya_uslug/pohody_na_baydarkah_1680966635" target="_blank" rel="noopener">Написать и отзывы на Avito →</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Воронежский клуб байдарочников. Сделано с любовью к рекам.</span>
-      <span>г. Воронеж</span>
+      <span>г. Воронеж, ул. Челюскинцев, 101</span>
     </div>
   </div>
 </footer>

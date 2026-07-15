@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     vdhr: {
       color: "#2ecc71",
-      name: "Воронежское водохранилище",
+      name: "Река Усманка",
       points: [
-        { lat: 51.7300, lng: 39.2100, km: 0, label: "Старт у базы клуба" },
-        { lat: 51.7700, lng: 39.2450, km: 4, label: "Разворот" },
-        { lat: 51.7300, lng: 39.2100, km: 8, label: "Финиш у базы клуба" }
+        { lat: 51.7920, lng: 39.5060, km: 0,  label: "Старт — Боровое" },
+        { lat: 51.8300, lng: 39.5600, km: 7,  label: "Середина маршрута" },
+        { lat: 51.8650, lng: 39.6050, km: 14, label: "Финиш — турбаза «Лесная сказка»" }
       ]
     }
   };
@@ -138,13 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function initContactsMap() {
     const mapEl = document.getElementById("contacts-map");
     if (!mapEl || typeof L === "undefined") return;
-    const clubLatLng = [51.6600, 39.2100]; // примерное расположение базы клуба — замените на точный адрес
-    const map = L.map(mapEl, { scrollWheelZoom: false }).setView(clubLatLng, 13);
+    const clubLatLng = [51.6712, 39.1978]; // ул. Челюскинцев, 101, Воронеж (примерно — уточните при необходимости)
+    const map = L.map(mapEl, { scrollWheelZoom: false }).setView(clubLatLng, 14);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-    L.marker(clubLatLng).addTo(map).bindPopup("<b>База клуба</b><br>Кольцовская наб., Воронеж").openPopup();
+    L.marker(clubLatLng).addTo(map).bindPopup("<b>Воронежский клуб байдарочников</b><br>ул. Челюскинцев, 101").openPopup();
   }
 
   initRoutesMap();
