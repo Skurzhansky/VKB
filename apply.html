@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заявка — Воронежский клуб байдарочников</title>
+<meta name="description" content="Заявка на вступление в Воронежский клуб байдарочников и запись на сплав.">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Логотип Воронежского клуба байдарочников">
+      <div class="brand-name">Воронежский клуб<span>байдарочников</span></div>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Главная</a>
+      <a href="routes.html">Маршруты</a>
+      <a href="classes.html">Занятия</a>
+      <a href="gallery.html">Фотогалерея</a>
+      <a href="news.html">Новости</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="apply.html" class="active">Заявка</a>
+    </nav>
+    <div class="header-cta">
+      <a href="apply.html" class="btn btn--sun">Подать заявку</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="--hero-bg:url('https://images.unsplash.com/photo-1551158025-b74e9d4f3617?auto=format&fit=crop&w=2000&q=80')">
+  <div class="container">
+    <span class="page-hero-eyebrow">Заявка</span>
+    <h1>Хотите присоединиться?</h1>
+    <p>Заполните короткую заявку — мы свяжемся с вами и подберём подходящий маршрут и группу.</p>
+  </div>
+</section>
+
+<section class="section section--dark" id="apply">
+  <div class="container">
+    <div class="apply-layout">
+      <div class="reveal">
+        <span class="section-eyebrow">Что дальше</span>
+        <h2 class="section-title">После заявки</h2>
+        <ul class="apply-points">
+          <li><span class="chk">✓</span><span><b>Свяжемся с вами</b> в течение 1–2 дней</span></li>
+          <li><span class="chk">✓</span><span><b>Подберём маршрут</b> по вашему уровню подготовки</span></li>
+          <li><span class="chk">✓</span><span><b>Дадим снаряжение</b> — своей байдарки не нужно</span></li>
+          <li><span class="chk">✓</span><span><b>Проведём инструктаж</b> перед первым сплавом</span></li>
+        </ul>
+      </div>
+      <form class="apply-form reveal" id="applyForm">
+        <div class="form-row">
+          <div class="form-field"><label for="f-name">Имя</label><input type="text" id="f-name" name="name" placeholder="Как к вам обращаться" required></div>
+          <div class="form-field"><label for="f-phone">Телефон</label><input type="tel" id="f-phone" name="phone" placeholder="+7 ___ ___-__-__" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label for="f-email">Email</label><input type="email" id="f-email" name="email" placeholder="you@mail.ru"></div>
+          <div class="form-field"><label for="f-level">Опыт</label>
+            <select id="f-level" name="level">
+              <option>Новичок — никогда не грёб(-ла)</option>
+              <option>Немного опыта</option>
+              <option>Уверенно гребу, хочу сложнее</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full"><label for="f-route">Интересующий маршрут</label>
+            <select id="f-route" name="route">
+              <option>Река Воронеж — лёгкий</option>
+              <option>Река Дон — средний</option>
+              <option>Река Хопёр — средний/сложный</option>
+              <option>Ещё не решил(-а)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full"><label for="f-msg">Комментарий</label><textarea id="f-msg" name="message" rows="3" placeholder="Вопросы, пожелания по датам и т.д."></textarea></div>
+        </div>
+        <button type="submit" class="btn btn--sun btn--block">Отправить заявку</button>
+        <p class="form-note">Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.</p>
+        <div class="form-success" id="formSuccess">Спасибо! Заявка отправлена — мы свяжемся с вами в ближайшее время.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Логотип клуба">
+          <span>Клуб байдарочников</span>
+        </div>
+        <p>Сплавы, обучение гребле и путешествия по рекам Воронежской области. Воронеж.</p>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="routes.html">Маршруты</a></li>
+          <li><a href="classes.html">Занятия</a></li>
+          <li><a href="gallery.html">Фотогалерея</a></li>
+          <li><a href="news.html">Новости</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Клуб</h5>
+        <ul>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="apply.html">Заявка</a></li>
+          <li><a href="#">ВКонтакте</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Связь</h5>
+        <ul>
+          <li><a href="tel:+74730000000">+7 (473) 000-00-00</a></li>
+          <li><a href="mailto:info@vrn-baidarki.ru">info@vrn-baidarki.ru</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Воронежский клуб байдарочников. Сделано с любовью к рекам.</span>
+      <span>г. Воронеж</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

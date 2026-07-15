@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маршруты — Воронежский клуб байдарочников</title>
+<meta name="description" content="Карты маршрутов клуба по рекам Воронеж, Дон и Хопёр с отметками пройденных километров.">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Логотип Воронежского клуба байдарочников">
+      <div class="brand-name">Воронежский клуб<span>байдарочников</span></div>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Главная</a>
+      <a href="routes.html" class="active">Маршруты</a>
+      <a href="classes.html">Занятия</a>
+      <a href="gallery.html">Фотогалерея</a>
+      <a href="news.html">Новости</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="apply.html">Заявка</a>
+    </nav>
+    <div class="header-cta">
+      <a href="apply.html" class="btn btn--sun">Подать заявку</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="--hero-bg:url('https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=2000&q=80')">
+  <div class="container">
+    <span class="page-hero-eyebrow">Маршруты</span>
+    <h1>Наши сплавы на карте</h1>
+    <p>Выберите маршрут — на карте появятся отметки километража. Наведите на маркер, чтобы увидеть, сколько километров пройдено от старта.</p>
+  </div>
+</section>
+
+<section class="section section--white" id="routes">
+  <div class="container">
+    <div class="routes-layout">
+      <div class="routes-list reveal" id="routesList">
+        <div class="route-item is-active" data-route="voronezh">
+          <span class="route-color" style="background:#3fb6c9"></span>
+          <div><h4>Река Воронеж</h4><span>Чертовицкое → Рамонь · лёгкий</span></div>
+          <span class="route-km">18 км</span>
+        </div>
+        <div class="route-item" data-route="don">
+          <span class="route-color" style="background:#f2994a"></span>
+          <div><h4>Река Дон</h4><span>Костёнки → Дивногорье · средний</span></div>
+          <span class="route-km">32 км</span>
+        </div>
+        <div class="route-item" data-route="hoper">
+          <span class="route-color" style="background:#7c5cff"></span>
+          <div><h4>Река Хопёр</h4><span>Новохопёрск → Урюпинск · средний/сложный</span></div>
+          <span class="route-km">45 км</span>
+        </div>
+        <div class="route-item" data-route="vdhr">
+          <span class="route-color" style="background:#2ecc71"></span>
+          <div><h4>Воронежское водохранилище</h4><span>Тренировочный сплав · для новичков</span></div>
+          <span class="route-km">8 км</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div id="routes-map"></div>
+        <p class="map-note">* Маршруты и километраж — примерные, для демонстрации макета. Замените координаты и отметки км в <code>assets/script.js</code> (объект <code>routesData</code>) на реальные GPS-треки вашего клуба.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--light">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Отметки километража</span>
+      <h2 class="section-title">Как читать карту</h2>
+      <p class="section-desc">На каждом маршруте расставлены маркеры с числом километров от точки старта — так видно прогресс группы по дистанции.</p>
+    </div>
+    <div class="grid-cards">
+      <div class="card reveal"><div class="card-icon">📍</div><h3>Старт — 0 км</h3><p>Точка сбора и спуска байдарок на воду, инструктаж перед выходом.</p></div>
+      <div class="card reveal"><div class="card-icon">⏱️</div><h3>Промежуточные отметки</h3><p>Маркеры на маршруте показывают пройденную дистанцию и места стоянок.</p></div>
+      <div class="card reveal"><div class="card-icon">🏁</div><h3>Финиш</h3><p>Итоговый километраж маршрута и точка выхода на берег.</p></div>
+      <div class="card reveal"><div class="card-icon">🗺️</div><h3>Свои треки</h3><p>Добавляйте новые маршруты и километраж — карта строится автоматически.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Логотип клуба">
+          <span>Клуб байдарочников</span>
+        </div>
+        <p>Сплавы, обучение гребле и путешествия по рекам Воронежской области. Воронеж.</p>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="routes.html">Маршруты</a></li>
+          <li><a href="classes.html">Занятия</a></li>
+          <li><a href="gallery.html">Фотогалерея</a></li>
+          <li><a href="news.html">Новости</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Клуб</h5>
+        <ul>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="apply.html">Заявка</a></li>
+          <li><a href="#">ВКонтакте</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Связь</h5>
+        <ul>
+          <li><a href="tel:+74730000000">+7 (473) 000-00-00</a></li>
+          <li><a href="mailto:info@vrn-baidarki.ru">info@vrn-baidarki.ru</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Воронежский клуб байдарочников. Сделано с любовью к рекам.</span>
+      <span>г. Воронеж</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>

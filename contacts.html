@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — Воронежский клуб байдарочников</title>
+<meta name="description" content="Контакты Воронежского клуба байдарочников: адрес базы, телефон, почта и карта.">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Логотип Воронежского клуба байдарочников">
+      <div class="brand-name">Воронежский клуб<span>байдарочников</span></div>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Главная</a>
+      <a href="routes.html">Маршруты</a>
+      <a href="classes.html">Занятия</a>
+      <a href="gallery.html">Фотогалерея</a>
+      <a href="news.html">Новости</a>
+      <a href="contacts.html" class="active">Контакты</a>
+      <a href="apply.html">Заявка</a>
+    </nav>
+    <div class="header-cta">
+      <a href="apply.html" class="btn btn--sun">Подать заявку</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="--hero-bg:url('https://images.unsplash.com/photo-1696469014188-e6d7ea983c56?auto=format&fit=crop&w=2000&q=80')">
+  <div class="container">
+    <span class="page-hero-eyebrow">Контакты</span>
+    <h1>Как нас найти</h1>
+    <p>Приезжайте на базу клуба или напишите нам — расскажем про ближайший сплав.</p>
+  </div>
+</section>
+
+<section class="section section--white" id="contacts">
+  <div class="container">
+    <div class="contacts-layout">
+      <div class="reveal">
+        <div class="contact-row"><div class="contact-icon">📍</div><div><h4>База клуба</h4><p>г. Воронеж, Кольцовская наб., рядом с лодочной станцией</p></div></div>
+        <div class="contact-row"><div class="contact-icon">📞</div><div><h4>Телефон</h4><p>+7 (473) 000-00-00</p></div></div>
+        <div class="contact-row"><div class="contact-icon">✉️</div><div><h4>Почта</h4><p>info@vrn-baidarki.ru</p></div></div>
+        <div class="contact-row"><div class="contact-icon">🕒</div><div><h4>Тренировки</h4><p>Вт, Чт — 19:00–21:00, Сб-Вс — по расписанию сплавов</p></div></div>
+        <div class="social-links">
+          <a href="#" aria-label="ВКонтакте">VK</a>
+          <a href="#" aria-label="Telegram">TG</a>
+          <a href="#" aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div class="reveal"><div id="contacts-map"></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Логотип клуба">
+          <span>Клуб байдарочников</span>
+        </div>
+        <p>Сплавы, обучение гребле и путешествия по рекам Воронежской области. Воронеж.</p>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <ul>
+          <li><a href="routes.html">Маршруты</a></li>
+          <li><a href="classes.html">Занятия</a></li>
+          <li><a href="gallery.html">Фотогалерея</a></li>
+          <li><a href="news.html">Новости</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Клуб</h5>
+        <ul>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="apply.html">Заявка</a></li>
+          <li><a href="#">ВКонтакте</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Связь</h5>
+        <ul>
+          <li><a href="tel:+74730000000">+7 (473) 000-00-00</a></li>
+          <li><a href="mailto:info@vrn-baidarki.ru">info@vrn-baidarki.ru</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Воронежский клуб байдарочников. Сделано с любовью к рекам.</span>
+      <span>г. Воронеж</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>
